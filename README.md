@@ -50,13 +50,17 @@
  - gulp 설치
         `$ npm install -g gulp` (-g 옵션은 전역설치)
 
- - project에 설정
+ - npm 감시하기
         `$ npm init` 하여 패키지 초기 설정하기 (`$npm init -y`)로 기본값세팅도 가능
 
- - package 설치
+ - package 설치법
         `$ npm install --save-dev package` 로 필요한 패키지 설치
                 (--save-dev는 -D로, install은  i로 축약해 사용 가능 === `$ npm i -D package`)
 (npm i -D는 devDependencies이며 개발용, npm i --save는 외부용 패키지 입니다. (ex.jQuery) )
+
+ - boiler-plate 활용
+       boiler-plate (package.json) 가 있다면 별도의 설정이 필요가 없습니다.
+       프로젝트폴더에 package.json을 위치 시키고 `$ npm i` 명령어만 실행하면 boiler-plate의 설정대로 설치합니다.
 
 ---
 
