@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>front-end automation</title>
+	<link rel="stylesheet" type="text/css" href="./rsc/css/common.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="./rsc/js/commonUI.js" defer></script>
+</head>
+<body>
+	<!-- header -->
+	<header class="header">
+		<h1 class="header__title">Front-end preprocessor &amp;<!--re-architecturing--> Automation</h1>
+		<span class="header_bg"></span>
+	</header>
+	<!-- //header -->
+
+	<div class="global">
+		<a href="#" class="global__button">
+			<span class="global__button-bar global__button-bar1"></span>
+			<span class="global__button-bar global__button-bar2"></span>
+			<span class="global__button-bar global__button-bar3"></span>
+		</a>
+		<ul class="global__listwrap">
+			<li class="global__list"><a href="#task_purpose" class="global__item">1. 도입목적</a></li>
+			<li class="global__list"><a href="#node_install" class="global__item">2. node.js 설치</a></li>
+			<li class="global__list"><a href="#gulp_install" class="global__item">3. gulp 설치</a></li>
+			<li class="global__list"><a href="#plugin_install" class="global__item">4. plugin 설치</a></li>
+			<li class="global__list"><a href="#gulp_grammar" class="global__item">5. gulp 문법</a></li>
+			<li class="global__list"><a href="#gulp_setting" class="global__item">6. gulp 설정</a></li>
+			<li class="global__list"><a href="#global_state" class="global__item">7. 적용된 상태</a></li>
+			<li class="global__list"><a href="#tutorial_end" class="global__item">8. 마치며</a></li>
+		</ul>
+	</div>
+
+	<a href="#" class="top-button">위로</a>
+
+	<!-- section -->
+	<section class="section">
+
+		<article class="intro">
+			<h1 class="intro__title">웹표준파트 업무효율 향상 및 사이트 성능개선을 위한 빌드시스템(Gulp) 구축</h1>
+			<p class="intro__paragraph">빌드시스템의 대표적인 도구로 Grunt와 Gulp가 있으며 많은 회사가 Gulp를 사용하고 있습니다.<br />Gulp는 plugin들을 연결하여 사용할 수 있고 task 정의가 간단하며, plugin들의 재사용성이 더 좋다는 장점을 갖고 있습니다.</p>
+			<p class="intro__paragraph">올해 4월부터 유지보수와 프로젝트를 진행할 때 CSS방법론 중 하나인 B.E.M ( block__element--modifier ) 기법을 사용하고 있습니다.</p>
+			<p class="intro__paragraph">B.E.M기법은 명확한 Naming과 sass를 사용하는데에 가장 적합한 방법론 중 하나입니다.</p>
+			<p class="intro__paragraph">package.json, gulpfile.js는 파트원들과 지속적으로 의논하여 더 나은 boiler-plate를 구축하여 누구든 쉽게 설정하고 사용할 수 있도록 할 예정입니다.<br /><span class="description">* boiler-plate를 공유하고 node.js가 설치 되어있다면 $npm i 로, 다른 사람들과 똑같은 환경설정이 가능합니다.)</span></p>
+			<pre class="blackboard"><code>
+			/*
+			*  (section) = 각각의 서비스 (ex. main, person, biz) 등등..
+			*  [] = 폴더
+			*/
+			@workspace
+				|--  (section).scss
+				|--  [section]
+				|	  	|--  _section_modify
+				|	  	|--  _section_add
+				|
+				|--  [common]
+				|	  	|--  _initialize
+				|	  	|--  _mixin
+				|	  	|--  _function
+				|	  	|--  _variable
+				|
+				|--  [layout]
+				|	  	|--  _header
+				|	  	|--  _footer
+				|	  	|--  _aside
+				|	  	|--  _aside(service)
+				|
+				|--  [goods]
+				|	  	|--  _goods_list
+				|	  	|--  _goods_table
+				|	  	|--  _goods_effect
+				|
+				|--  [component]
+				|	  	|--  _button
+				|	  	|--  _layer
+				|	  	|--  _icons
+				|	  	|--  _search
+			</code></pre>
+		</article>
+
+		<article class="summary" id="task_purpose">
+			<h1 class="summary__title">1. 도입목적</h1>
+			<p class="summary__paragraph summary__paragraph--space"><strong>gulp-sass</strong><img src="./rsc/images/img4.png" alt="" /><span class="line">css의 가독성이 향상되며 variable, include, extend, javascript와 같이 연산도 가능하게 되어 css생산성이 좋아지며, <br />compile 할때는 압축본으로 css파일이 생성되기 때문에 성능면에서도 좋은 효과를 얻을 수 있습니다.</span></p>
+			<p class="summary__paragraph summary__paragraph--space"><strong>분할작업</strong><img src="./rsc/images/img8.png" style="width:1000px" alt="" /><span class="line">Section 별로 css 파일을 분활화 작업이 가능하여 여러명이 동시에 작업후 SCSS파일로 압축시에 하나의 css파일로 compile 시켜 작업 효율을 향상 시킬수 있습니다.</span></p>
+			<p class="summary__paragraph summary__paragraph--space"><strong style="color:red">gulp-uglify <span style="font-weight:bold;text-decoration:underline">(아직은 적용하지 않을 예정입니다.)</span></strong><img src="./rsc/images/img5.png" alt="" /><span class="line">uglify를 사용하여 js를 난독화하여 js파일의 용량을 감소시켜 성능에 도움이 됩니다.</span></p>
+			<p class="summary__paragraph summary__paragraph--space"><strong>gulp-imagemin</strong><img src="./rsc/images/img6.png" alt="" /><span class="line">이미지를 최적화하여 약 16%의 용량감소의 효과를 볼 수 있습니다.</span></p>
+			<p class="summary__paragraph summary__paragraph--space"><strong>gulp.spritesmith</strong><img src="./rsc/images/img7.png" alt="" /><span class="line">조각난 이미지가 하나의 sprite파일로 합쳐지며, sprite된 파일들을 사용하기 위한 정보들이 sprite_all.css에 기입되게 되기 때문에, <br />포토샵에서 이미지 로드 후 좌표를 계산하고 사이즈를 확인하는 절차가 필요없어지기 때문에, 작업공정이 줄어듭니다.</span></p>
+		</article>
+
+		<article class="summary" id="node_install">
+			<h1 class="summary__title">2. node.js 설치</h1>
+			<p class="summary__paragraph">gulp를 사용하기 위해 node.js가 설치되어 있어야 합니다. <a href="https://nodejs.org/ko/" target="_blank">node.js</a> 사이트 에서 다운로드 받으시면 됩니다.</p>
+		</article>
+
+		<article class="summary" id="gulp_install">
+			<h1 class="summary__title">3. gulp 설치</h1>
+			<p class="summary__paragraph">node.js 설치가 끝나면 npm(node package manager)이 같이 설치되며 command를 통해 gulp를 전역으로 설치합니다.<br />명령어는 아래와 같습니다. <em class="description">(win키+R을 눌러 실행창에 cmd 입력 후 명령 프롬프트 실행 혹은 git bash를 이용하여 설치)</em></p>
+			<pre class="blackboard"><code>
+				$ npm install -g gulp
+			</code></pre>
+			<p class="summary__paragraph">해당 프로젝트 루트에 명령어를 입력합니다.</p>
+			<pre class="blackboard"><code>
+				$ npm init
+			</code></pre>
+			<p class="summary__paragraph">npm init을 하게 된 순간부터 폴더에 package.json을 생성하기 위한 입력필드가 나오게 됩니다. 값들을 입력하여 package.json 생성을 완료합니다.<br /><em class="description">(package.json에 대한 설명은 <a href="https://docs.npmjs.com/files/package.json" target="_blank">링크</a>를 참조하시면 됩니다.)</em></p>
+			<pre class="blackboard"><code>
+				{
+					"name": "test",
+					"version": "1.0.0",
+					"description": "gulp test pages",
+					"main": "index.js",
+					"scripts": {
+					  "test": "echo \"Error: no test specified\" && exit 1"
+					},
+					"author": "leecho",
+					"license": "UNLICENSED",
+					"devDependencies": {
+					  "gulp": "^3.9.1",
+					  "gulp-imagemin": "^3.3.0",
+					  "gulp-sass": "^3.1.0",
+					  "gulp-scss": "^1.4.0",
+					  "gulp-uglify": "^3.0.0",
+					  "gulp.spritesmith": "^6.5.1"
+					}
+				  }
+			</code></pre>
+		</article>
+
+		<article class="summary" id="plugin_install">
+			<h1 class="summary__title">4. plugin 설치</h1>
+			<p class="summary__paragraph">plugin 설치 기본명령어는 아래와 같습니다.<em class="description">(명령어의 install은 i, --save-dev는 -D로 줄여서 사용가능합니다.)</em></p>
+			<pre class="blackboard"><code>
+				$ npm install --save-dev gulp-[plugin-name]
+				$ npm i -D gulp-[plugin-name]	//축약형 (대소문자 주의, -D로 해야지만 devDependencies로 들어 감)
+			</code></pre>
+			<p class="summary__paragraph">gulp의 plugin 중 하나인 gulp-sass를 설치한다고 한다면 아래와 같이 설치하면 됩니다.</p>
+			<pre class="blackboard"><code>
+				$ npm install --save-dev gulp-sass
+				$ npm i -D gulp-sass	//축약형
+			</code></pre>
+			<p class="summary__paragraph">그리고 아래처럼 사용할 plugin 여러가지를 동시에 설치 할 수도 있습니다.</p>
+			<pre class="blackboard"><code>
+				$ npm install --save-dev gulp-uglify gulp-sass gulp-scss gulp-imagemin gulp-spritesmith
+				$ npm i -D gulp-uglify gulp-sass gulp-scss gulp-imagemin gulp-spritesmith	//축약형
+			</code></pre>
+		</article>
+
+		<article class="summary" id="gulp_grammar">
+			<h1 class="summary__title">5. gulp 문법</h1>
+			<p class="summary__paragraph">plugin 설치 후 프로젝트 루트에 gulpfile.js를 생성 후 환경설정을 합니다.</p>
+			<pre class="blackboard"><code>
+				// gulp load
+				var gulp = require('gulp')
+
+				// task - hello
+				gulp.task('hello',function(){
+
+					return console.log('gulp hello task run!');
+				});
+
+				// task - default
+				gulp.task('default',function(){
+					return console.log('gulp default task run!');
+				});
+			</code></pre>
+			<p class="summary__paragraph">상단의 코드를 실행 할 시 아래의 이미지처럼 작동합니다.<br /> <img src="./rsc/images/img1.png" alt="" style="width:420px" /></p>
+		</article>
+		<article class="summary" id="gulp_setting">
+			<h1 class="summary__title">6. Gulp 설정</h1>
+			<p class="summary__paragraph">현재 사용하는 plugin은 아래와 같습니다. <em class="description">(이 외에도 약 2천여개의 plugin이 있다고 합니다)</em></p>
+			<ul class="summary__list">
+				<li class="summary__list-item"><strong>gulp-uglify</strong> 는 js압축(난독화) 하는 plugin 입니다.</li>
+				<li class="summary__list-item"><strong>gulp-sass,gulp-scss</strong> 는 sass혹은scss 파일을 css파일로 compile 해주는 plugin 입니다.</li>
+				<li class="summary__list-item"><strong>gulp-imagemin</strong> 은 이미지를 최적화하여 용량개선을 해주는 plugin 입니다.</li>
+				<li class="summary__list-item"><strong>gulp.spritesmith</strong> 는 이미지스프라이트(IS)기법을 사용하기 위해, 이미지조각을 한벌로 합쳐주며, 위치값을 css로 만들어주는 plugin 입니다.</li>
+			</ul>
+			<p class="summary__paragraph">task 구성방법은 다음과 같습니다.</p>
+			<pre class="blackboard"><code>
+			//gulp plugin load
+			var gulp = require('gulp'),
+				uglify = require('gulp-uglify'),
+				sass = require('gulp-sass'),
+				scss = require('gulp-scss'),
+				imagemin = require('gulp-imagemin'),
+				spritesmith = require('gulp.spritesmith');
+
+
+			// task_script
+			gulp.task('uglify',function(){
+				return gulp.src('./rsc/js/*.js')
+							.pipe(uglify())
+							.pipe(gulp.dest('./rsc/js'))
+			});
+
+
+			// task_css
+			gulp.task('sass',function(){
+				return gulp.src('./rsc/scss/*.scss')
+						.pipe(sass({outputStyle:'compressed'}).on('error',sass.logError)) // outputStyle : nested, compact, expanded, compressed
+						.pipe(gulp.dest('./rsc/css'));
+			});
+
+
+			// task_images
+			gulp.task('imagemin',function(){
+				return gulp.src('./rsc/images/**')
+							.pipe(imagemin({
+								progressive: true,
+								interlaced:true
+							}))
+							.pipe(gulp.dest('./rsc/images'))
+			});
+
+			gulp.task('sprite',function(){
+				var spriteData = gulp.src('./rsc/sprite/*')
+								.pipe(spritesmith({
+									imgName : 'sprite_all.png',
+									cssName : 'sprite_all.css',
+									padding : 10
+								}))
+								spriteData.img.pipe(gulp.dest('./rsc/sprite'))
+								spriteData.css.pipe(gulp.dest('./rsc/sprite'))
+			});
+
+
+			// task_default & watch
+			gulp.task('watch',function(){
+				gulp.watch('./rsc/js/*.js',['uglify']); //js
+				gulp.watch('./rsc/scss/*.scss',['sass']); //sass
+				gulp.watch('./rsc/images/**',['imagemin']); //imagemin
+				gulp.watch('./rsc/sprite/**',['sprite']); //sprite
+			});
+
+			gulp.task('default',['uglify','sass','imagemin','sprite','watch']);
+			</code></pre>
+		</article>
+
+		<article class="summary" id="global_state">
+			<h1 class="summary__title">7. 적용된 상태</h1>
+			<p class="summary__paragraph">이번에 계획한 시스템을 천국의알바에 적용하였습니다.</p>
+			<p class="summary__paragraph summary__paragraph--space">
+				<img src="./rsc/images/front_root.png" class="summary__image" />
+				<span class="summary__description">변경된 천국의알바 아키텍처 입니다.<br />task를 거쳐야 하는 가공 이전의 파일들은 모두 <strong>front-workspace</strong> 폴더에 존재하게 됩니다.<br /><br />배포되어야 할 css폴더와 작업중인 front-workspace폴더안에 scss폴더가 위치하고<br />해당 scss폴더에서 UI 개발자들이 작업을 하며 작업한 파일들이<br />compile이 되어, css로 만들어지게 됩니다.</span>
+			</p>
+			<p class="summary__paragraph summary__paragraph--space">
+				<img src="./rsc/images/task_run.png" class="summary__image" style="width:400px" />
+				<span class="summary__description">
+					현재 구성한 task는 총 4가지입니다.<br />
+					- clean -> 작업중인 css폴더의 파일들을 제거합니다.<br />
+					- work -> 작업중인 scss를 compile하여 자동으로 css 파일을 생성합니다.<br />
+					- deploy -> 실서버로 배포 될 css를 난독화(압축)하여 자동으로 날짜폴더 및 css 파일을 생성합니다.<br />
+					- deploy-override -> 실서버로 배포 될 파일을 난독화 하였으나, 배포 전 변경이 일어날 경우, 해당 폴더에 override합니다.
+				</span>
+			</p>
+			<p class="summary__paragraph summary__paragraph--space">
+				<img src="./rsc/images/folder_info.png" class="summary__image" style="width:650px" />
+				<span class="summary__description">
+					stage는 테스트파일이며 220KB 정도이고,<br />
+					deploy는 배포파일이며 174KB 정도로 용량감소가 되었으며,<br />
+					작성된 css가 많을수록 난독화 효과가 더 클 것이라 예상됩니다.
+				</span>
+			</p>
+		</article>
+
+		<article class="summary" id="tutorial_end">
+			<h1 class="summary__title">8. 마치며</h1>
+			<p class="summary__paragraph">앞에서 언급한 패키지들 말고도 다양한 패키지들이 존재합니다. 필요한 패키지들을 하나씩 찾아서 적용하다 보면<br />그렇게 쌓인 도구들이 조금 더 업무를 빠르게 할 수 있게 도와줄 것이고, 코드를 찾기 위해 방황하는 시간도 절약될 것이라 생각됩니다.<br>하나씩 적용해 나아가면서 더 빠르고 쾌적한 업무환경이 만들어졌으면 좋겠습니다.</p>
+			<p class="summary__paragraph">감사합니다.</p>
+		</article>
+	</section>
+	<!-- //section -->
+
+	<!-- footer -->
+	<footer class="footer">
+		<p>Copyright 2017&copy; LEECHO All Rights Reserved.</p>
+	</footer>
+	<!-- //footer -->
+</body>
+</html>

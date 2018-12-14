@@ -1,0 +1,68 @@
+$base-font-color : #333;
+$base-font-size: 12px;
+$base-font-family : '맑은 고딕','Malgun Gothic','AppleSDGothicNeo',gulim,dotum,sans-serif;
+
+@mixin reset-block {margin:0;padding:0;};
+@mixin reset-table {table-layout:fixed;border-spacing:0;border-collapse:collapse;
+    width:100%;margin:0;padding:0;
+};
+@mixin reset-inline {text-decoration:none;font-style:normal;
+    vertical-align:top;color:$basecolor;
+};
+@mixin reset-list {
+    margin:0;padding:0;list-style:none;
+};
+@mixin ellipsis {
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+};
+@mixin cleafix {
+    *zoom:1;
+    &:after{
+        content:"";clear:both;display:block
+    }
+};
+
+@mixin placeholder($color) {
+    &::-webkit-input-placeholder {
+        @content;
+        color:$color;
+    }
+    &::-moz-placeholder {
+        @content;
+        color:$color;
+    }
+    &:-moz-placeholder {
+        @content;
+        color:$color;
+    }
+    &:-ms-placeholder {
+        @content;
+        color:$color;
+    }
+};
+
+@mixin disabled-drag {
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    -o-user-select:none;
+    user-select:none;
+};
+
+@mixin radius($radius){
+    -webkit-border-radius:$radius;
+    -moz-border-radius:$radius;
+    -ms-border-radius:$radius;
+    -o-border-radius:$radius;
+    border-radius:$radius;
+};
+
+@mixin layercenter($index,$position,$width,$height,$bg-color){
+    z-index:$index;
+    position:$position;
+    width:$width;
+    height: $height;
+    margin-top:$height/2;
+    margin-left:$width/2;
+    background:$bg-color;
+};
