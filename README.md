@@ -56,7 +56,7 @@
  - package 설치법
         `$ npm install --save-dev package` 로 필요한 패키지 설치
                 (--save-dev는 -D로, install은  i로 축약해 사용 가능 === `$ npm i -D package`)
-(npm i -D는 devDependencies이며 개발용, npm i --save는 외부용 패키지 입니다. (ex.jQuery) )
+(npm i -D는 devDependencies이며 개발용, npm i -S는 외부용 패키지 입니다. (ex.jQuery) )
 
  - boiler-plate 활용
        boiler-plate (package.json) 가 있다면 별도의 설정이 필요가 없습니다.
